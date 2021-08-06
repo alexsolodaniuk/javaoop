@@ -2,6 +2,7 @@ package oophw4;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 
 public class Group {
 	private String name;
@@ -78,7 +79,7 @@ public class Group {
 			if (students[y] != null && students[y].getSurname().equals(surNameStud)) {
 				System.out.println(
 						"Студент найден.Его данные: " + students[y].getName() + " " + students[y].getSurname());
-				return students[y].getSurname();
+				return students[y].toString();
 			}
 		}
 		System.out.println("Студент " + surNameStud + " не найден");
@@ -88,6 +89,34 @@ public class Group {
 	@Override
 	public String toString() {
 		return "Group [name=" + name + ", students=" + Arrays.toString(sortNames(students)) + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + Arrays.hashCode(students);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Group other = (Group) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (!Arrays.equals(students, other.students))
+			return false;
+		return true;
 	}
 
 	public String toStringSortLastName() {
@@ -102,6 +131,19 @@ public class Group {
 	public Student[] sortStudentsByLastName(Student[] students) {
 		Arrays.sort(students, Comparator.nullsLast(new StudentsSurNameComparator()));
 		return students;
+	}
+
+	public boolean equalsStud() {
+		for (int i = 0; i < students.length; i++) {
+			if (students[i] != null) {
+				for (int j = i + 1; j < students.length; j++) {
+					if (students[i].equals(students[j])) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }

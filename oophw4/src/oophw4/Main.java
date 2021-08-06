@@ -30,6 +30,7 @@ public class Main {
 		Student student10 = stud.toKeyStud();
 		groupMD.addStudent(student10);
 		System.out.println(groupMD.toString());
+		System.out.println(groupMD.equalsStud());
 	}
 
 }

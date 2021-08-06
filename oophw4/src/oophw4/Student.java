@@ -40,4 +40,33 @@ public class Student extends Human {
 	public String toString() {
 		return super.toString() + " Student [numGradebook=" + numGradebook + ",  nameGroup=" + nameGroup + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((nameGroup == null) ? 0 : nameGroup.hashCode());
+		result = prime * result + (int) (numGradebook ^ (numGradebook >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (nameGroup == null) {
+			if (other.nameGroup != null)
+				return false;
+		} else if (!nameGroup.equals(other.nameGroup))
+			return false;
+		if (numGradebook != other.numGradebook)
+			return false;
+		return true;
+	}
+
 }
